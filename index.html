@@ -205,6 +205,7 @@ function draw(a, seedText, liveCount){
   const W=card.width,H=card.height,seed=hash(seedText||a.key);
   ctx.clearRect(0,0,W,H);
   const t=THEMES[a.key]||THEMES._default;
+  card.setAttribute("role","img"); card.setAttribute("aria-label", a.name+" — "+a.reading);  // screen-reader text
   const g=ctx.createLinearGradient(0,0,W*0.3,H);
   g.addColorStop(0,t.bg[0]);g.addColorStop(.45,t.bg[1]);g.addColorStop(.80,t.bg[2]);g.addColorStop(1,t.bg[0]);
   ctx.fillStyle=g;ctx.fillRect(0,0,W,H);
