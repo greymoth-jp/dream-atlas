@@ -139,6 +139,7 @@
 <script>
 /* UI layer. Deterministic engine lives in engine.js (single source of truth). */
 const {ARCHETYPES, hash, classify, tonightCount, isSensitive} = DreamEngine;
+const ATLAS_API="https://observatory-atlas.m-hirakawa07.workers.dev", APP="dream-atlas";
 const card=document.getElementById("card");
 const ctx=card.getContext("2d");
 let currentArche=null, currentSensitive=false, lastDreamText="", liveCounts=null;
@@ -146,13 +147,13 @@ let currentArche=null, currentSensitive=false, lastDreamText="", liveCounts=null
    Sends ONLY {archetype, date}; never the dream text. */
 async function fetchAtlas(){
   try{const date=new Date().toISOString().slice(0,10);
-    const r=await fetch("/api/atlas?date="+date,{cache:"no-store"});if(!r.ok)throw 0;
+    const r=await fetch(ATLAS_API+"/atlas?app="+APP+"&date="+date,{cache:"no-store"});if(!r.ok)throw 0;
     const j=await r.json();liveCounts=j.counts||{};return j;}
   catch(e){liveCounts=null;return null;}
 }
 async function contribute(key){
   try{const date=new Date().toISOString().slice(0,10);
-    const r=await fetch("/api/contribute",{method:"POST",headers:{"Content-Type":"application/json"},
+    const r=await fetch(ATLAS_API+"/contribute?app="+APP,{method:"POST",headers:{"Content-Type":"application/json"},
       body:JSON.stringify({archetype:key,date})});
     const j=await r.json();if(j&&j.counts)liveCounts=j.counts;return j;}
   catch(e){return null;}
