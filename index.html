@@ -326,6 +326,7 @@ renderAtlas().then(()=>{
     document.getElementById("readBtn").click();
   }
 });
+if("serviceWorker" in navigator) navigator.serviceWorker.register("sw.js").catch(()=>{});
 </script>
 </body>
 </html>
