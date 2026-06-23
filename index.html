@@ -13,6 +13,13 @@
 <meta name="twitter:title" content="Dream Atlas" />
 <meta name="twitter:description" content="Find your dream's archetype. See what the world dreamed tonight." />
 <meta name="twitter:image" content="og.png" />
+<link rel="manifest" href="manifest.json" />
+<link rel="icon" href="icon-192.png" />
+<link rel="apple-touch-icon" href="icon-192.png" />
+<meta name="theme-color" content="#0b0918" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-title" content="Dream Atlas" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
 <style>
   :root{
     --ink:#0b0918;--night:#140f2e;--violet:#2a1a55;--violet-2:#3d2470;
@@ -20,6 +27,7 @@
     --vellum:#f3ecdd;--mist:rgba(239,231,214,.55);
   }
   *{box-sizing:border-box;margin:0;padding:0}
+  @media (prefers-reduced-motion: reduce){*,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important;scroll-behavior:auto!important}}
   html,body{height:100%}
   body{
     font-family:"Hoefler Text","Cormorant Garamond",Garamond,"EB Garamond",Georgia,"Times New Roman",serif;
@@ -256,7 +264,7 @@ async function renderAtlas(highlight){
   const total=rows.reduce((s,r)=>s+r.n,0);
   document.getElementById("atlasSub").textContent = live
     ? total.toLocaleString()+" dreams charted · live"
-    : "illustrative preview — seeded counts until the atlas goes live";
+    : "the atlas is just beginning tonight — add yours to help chart it";
   const bars=document.getElementById("bars");bars.innerHTML="";
   for(const {a,n} of rows){
     const row=document.createElement("div");row.className="bar";
