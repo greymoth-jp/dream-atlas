@@ -95,6 +95,13 @@
   .track{height:9px;background:rgba(239,231,214,.07);border-radius:6px;overflow:hidden;position:relative}
   .fill{height:100%;width:0;border-radius:6px;background:linear-gradient(90deg,rgba(122,86,201,.5),var(--foil));transition:width 1.2s cubic-bezier(.2,.8,.2,1)}
   .bar .ct{font-size:13px;color:var(--ivory-dim);font-variant-numeric:tabular-nums;min-width:54px;text-align:right}
+  .gallery{max-width:760px;margin:84px auto 0}
+  .g-eyebrow{text-align:center;font-variant:small-caps;letter-spacing:.34em;font-size:13px;color:var(--foil);margin-bottom:26px}
+  .g-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:14px}
+  .g-card{border:1px solid rgba(216,184,106,.16);border-radius:5px;padding:18px 15px;text-align:center;background:rgba(122,86,201,.05)}
+  .g-card .gg{font-size:30px;color:var(--foil-soft)}
+  .g-card .gn{font-style:italic;font-size:18px;color:var(--vellum);margin:6px 0 5px}
+  .g-card .gt{font-size:12.5px;color:var(--ivory-dim);line-height:1.5}
   footer{margin-top:92px;text-align:center;color:var(--ivory-dim);font-size:13px;line-height:1.9}
   footer .priv{color:var(--foil-soft);font-style:italic}
   footer .sig{font-variant:small-caps;letter-spacing:.34em;margin-top:8px;color:var(--mist)}
@@ -129,7 +136,7 @@
         <button class="ghost" id="dlBtn">Share card</button>
         <button class="ghost" id="addBtn">Add to tonight's Atlas</button>
       </div>
-      <div class="added" id="added">✶ added — you are part of tonight's sky</div>
+      <div class="added" id="added" role="status" aria-live="polite">✶ added — you are part of tonight's sky</div>
       <div class="support" id="support">This dream stays private — it won't be added to the public atlas. If something is weighing on you, you don't have to carry it alone: <a href="https://findahelpline.com" target="_blank" rel="noopener">findahelpline.com</a>.</div>
     </section>
 
@@ -138,6 +145,11 @@
       <h2 id="atlasHead">the world is dreaming…</h2>
       <div class="sub" id="atlasSub"></div>
       <div class="bars" id="bars"></div>
+    </section>
+
+    <section class="gallery">
+      <div class="g-eyebrow">the twelve dreams</div>
+      <div class="g-grid" id="grid"></div>
     </section>
 
     <footer>
@@ -333,6 +345,9 @@ renderAtlas().then(()=>{
   }
 });
 if("serviceWorker" in navigator) navigator.serviceWorker.register("sw.js").catch(()=>{});
+/* the twelve — browsable archetype gallery (cold-start: something to explore before you dream) */
+(function(){const grid=document.getElementById("grid");if(!grid)return;
+  grid.innerHTML=ARCHETYPES.map(a=>'<div class="g-card"><div class="gg">'+a.glyph+'</div><div class="gn">'+a.name+'</div><div class="gt">'+a.reading.split(/\.\s/)[0]+'.</div></div>').join("");})();
 </script>
 </body>
 </html>
